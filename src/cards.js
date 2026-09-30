@@ -80,6 +80,21 @@ export const MINUS_MODS = [
   { label: '−10', kind: 'modifier', value: -10, key: 'mod_m10', color: '#C62828' },
 ];
 
+// Cards that exist in each edition.
+//   Flip 7:            0–12, ×2, +2…+10
+//   With a Vengeance:  0–13, Lucky 13, ÷2, −2…−10
+const VENGEANCE_ONLY_NUMBERS = ['num_13', 'num_lucky13'];
+
+export function cardsFor(edition) {
+  const v = edition === 'vengeance';
+  return {
+    numbers: NUMBER_CARDS.filter((c) => v || !VENGEANCE_ONLY_NUMBERS.includes(c.key)),
+    multiplier: v ? MULTIPLIERS[1] : MULTIPLIERS[0], // ÷2 or ×2
+    multiplierField: v ? 'divideBy2' : 'multiplyX2',
+    mods: v ? MINUS_MODS : PLUS_MODS,
+  };
+}
+
 export const FLIP7 = {
   label: 'FLIP 7\n+15',
   kind: 'bonus',

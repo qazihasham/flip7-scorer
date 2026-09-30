@@ -18,11 +18,15 @@ Put the pen and paper away. Track every round, crown the winner with confetti, a
 
 ### 🎯 Scoring
 - Add players, rename them, remove them, reset a score, or start a **New game** with one tap
-- Tap-to-score sheet that mirrors the real cards:
-  - Number cards **0–13** plus **Lucky 13**
-  - **×2** and **÷2** cards
-  - **+2 … +10** and **−2 … −10** modifiers
-  - **Flip 7 bonus (+15)**, added automatically when you select 7 number cards
+- Tap-to-score sheet that shows only the cards in the edition you're playing:
+
+  | | Flip 7 | With a Vengeance |
+  |---|---|---|
+  | Number cards | 0–12 | 0–13 + Lucky 13 |
+  | Multiplier | ×2 | ÷2 |
+  | Modifiers | +2 … +10 | −2 … −10 |
+
+  - **Flip 7 bonus (+15)** in both, added automatically when you select 7 number cards
   - A custom amount, positive or negative
 - Live running total and a "score before → after" preview before you add it
 - Sort by score or A–Z, with the leader wearing a 👑

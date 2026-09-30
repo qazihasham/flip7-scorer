@@ -12,15 +12,9 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
-  NUMBER_CARDS,
-  MULTIPLIERS,
-  PLUS_MODS,
-  MINUS_MODS,
-  FLIP7,
-  CardChip,
-} from './cards';
+import { cardsFor, FLIP7, CardChip } from './cards';
 import { emptyRound, computeTotal, roundIsEmpty } from './scoring';
+import { useStore } from './store';
 import { useTheme, FONT } from './theme';
 import { Button } from './components/ui';
 
@@ -38,6 +32,9 @@ export default function ScoringModal({
   const [round, setRound] = useState(emptyRound());
   const [customText, setCustomText] = useState('');
   const t = useTheme();
+  const { state } = useStore();
+  // Only the cards that exist in the selected edition.
+  const deck = cardsFor(state.edition);
   const insets = useSafeAreaInsets();
   // Inside a RN Modal, useSafeAreaInsets() reports 0 (separate native root),
   // so trust the value passed from App, falling back to any local reading.
@@ -150,7 +147,7 @@ export default function ScoringModal({
             >
               <Section title="Number cards" />
               <View style={styles.wrap}>
-                {NUMBER_CARDS.map((c) => (
+                {deck.numbers.map((c) => (
                   <CardChip
                     key={c.key}
                     card={c}
@@ -160,44 +157,26 @@ export default function ScoringModal({
                 ))}
               </View>
               <Selected
-                labels={NUMBER_CARDS.filter(isNumberOn).map((c) => oneLine(c.label))}
+                labels={deck.numbers.filter(isNumberOn).map((c) => oneLine(c.label))}
               />
 
-              <Section title="Multiply / Divide" />
+              <Section title={deck.multiplierField === 'divideBy2' ? 'Divide' : 'Multiply'} />
               <View style={styles.row}>
                 <CardChip
-                  card={MULTIPLIERS[0]}
-                  selected={round.multiplyX2}
-                  onPress={() => toggle('multiplyX2')}
-                />
-                <View style={{ width: 10 }} />
-                <CardChip
-                  card={MULTIPLIERS[1]}
-                  selected={round.divideBy2}
-                  onPress={() => toggle('divideBy2')}
+                  card={deck.multiplier}
+                  selected={round[deck.multiplierField]}
+                  onPress={() => toggle(deck.multiplierField)}
                 />
               </View>
-              <Selected
-                labels={[
-                  round.multiplyX2 && '×2',
-                  round.divideBy2 && '÷2',
-                ].filter(Boolean)}
-              />
+              <Selected labels={round[deck.multiplierField] ? [deck.multiplier.label] : []} />
 
               <Section title="Modifiers" />
               <View style={styles.wrap}>
-                {PLUS_MODS.map((c) => (
-                  <CardChip key={c.key} card={c} selected={isModOn(c)} onPress={() => toggleMod(c)} />
-                ))}
-                {MINUS_MODS.map((c) => (
+                {deck.mods.map((c) => (
                   <CardChip key={c.key} card={c} selected={isModOn(c)} onPress={() => toggleMod(c)} />
                 ))}
               </View>
-              <Selected
-                labels={[...PLUS_MODS, ...MINUS_MODS]
-                  .filter(isModOn)
-                  .map((c) => c.label)}
-              />
+              <Selected labels={deck.mods.filter(isModOn).map((c) => c.label)} />
 
               <Section title="Flip 7 bonus" />
               <CardChip
