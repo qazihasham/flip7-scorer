@@ -2,23 +2,32 @@
   "expo": {
     "name": "flip7-scorer",
     "slug": "flip7-scorer",
-    "version": "1.0.0",
+    "version": "14.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.qazihasham.flip7scorer"
     },
     "android": {
+      "package": "com.qazihasham.flip7scorer",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/adaptive-foreground.png"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a12d4a3e-0ab1-45b0-ad46-3d6c252c87b2"
+      }
+    },
+    "owner": "qazihasham",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
