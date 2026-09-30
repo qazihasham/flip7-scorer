@@ -27,6 +27,10 @@ Put the pen and paper away. Track every round, crown the winner with confetti, a
 - Live running total and a "score before → after" preview before you add it
 - Sort by score or A–Z, with the leader wearing a 👑
 
+<p align="center">
+  <img src="docs/screenshots/scoring.jpg" width="230" alt="Tap-to-score card sheet" />
+</p>
+
 ### 🏆 Winning
 - Hit **200** and a short confetti burst fires
 - A banner names the winner (or winners, if tied) and prompts you to **Sync**
